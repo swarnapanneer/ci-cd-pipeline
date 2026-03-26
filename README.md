@@ -18,27 +18,27 @@
 Developer pushes code → GitHub
 
         ↓
-
 Jenkins builds project
 
         ↓
-
 Docker image created
 
         ↓
-
 Deploy to EC2 server
 
         ↓
-
 Application live 🌐
 
 step 1: **Create simple Python app and Docker File**
 
+*app.py
+
+*Docker file
+
 Step 2: **Launch EC2 Instance**
 
 Install Docker:
-
+```
 sudo apt update
 
 sudo apt install docker.io -y
@@ -46,6 +46,8 @@ sudo apt install docker.io -y
 sudo systemctl start docker
 
 sudo usermod -aG docker ubuntu
+```
+
 
 Step 3: **Edit Secuity Groups inbound rules**
 
@@ -67,7 +69,7 @@ New Item → Freestyle Project
 Source Code Management → Git → Paste repo URL
 
 Step 6: **Add Build Steps in Jenkins**
-
+```
 docker build -t myapp .
 
 docker stop myapp-container || true
@@ -75,7 +77,7 @@ docker stop myapp-container || true
 docker rm myapp-container || true
 
 docker run -d -p 80:80 --name myapp-container myapp
-
+```
 Step 7: **Enable Auto Trigger (CI)**
 
 👉 In Jenkins:
